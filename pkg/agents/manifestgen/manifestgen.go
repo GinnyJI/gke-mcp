@@ -36,6 +36,7 @@ import (
 	"google.golang.org/adk/tool"
 	"google.golang.org/adk/tool/functiontool"
 	"google.golang.org/genai"
+	"github.com/GoogleCloudPlatform/gke-mcp/pkg/clients/dk"
 )
 
 //go:embed instruction.md
@@ -82,7 +83,7 @@ type SearchDocumentsArgs struct {
 }
 
 // createDKTools creates the tools for the Developer Knowledge API.
-func createDKTools(client DeveloperKnowledgeClient) ([]tool.Tool, error) {
+func createDKTools(client dk.DeveloperKnowledgeClient) ([]tool.Tool, error) {
 	getDocsTool, err := functiontool.New(
 		functiontool.Config{
 			Name:        "dk_get_documents",
