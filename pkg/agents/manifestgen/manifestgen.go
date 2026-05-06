@@ -66,6 +66,65 @@ type FetchModelServersArgs struct {
 	Model string `json:"model" jsonschema:"The model for which to list model servers. Required."`
 }
 
+// GetDocumentsArgs holds arguments for fetching documents.
+type GetDocumentsArgs struct {
+	DocumentIDs []string `json:"document_ids" jsonschema:"The IDs of the documents to fetch. Required."`
+}
+
+// AnswerQueryArgs holds arguments for answering a query.
+type AnswerQueryArgs struct {
+	Query string `json:"query" jsonschema:"The query to answer. Required."`
+}
+
+// SearchDocumentsArgs holds arguments for searching documents.
+type SearchDocumentsArgs struct {
+	Query string `json:"query" jsonschema:"The query to search for. Required."`
+}
+
+// createDKTools creates the tools for the Developer Knowledge API.
+func createDKTools(client DeveloperKnowledgeClient) ([]tool.Tool, error) {
+	getDocsTool, err := functiontool.New(
+		functiontool.Config{
+			Name:        "dk_get_documents",
+			Description: "Fetch specific documents by their IDs from the Developer Knowledge base.",
+		},
+		func(ctx tool.Context, args GetDocumentsArgs) (string, error) {
+			return client.GetDocuments(ctx, args.DocumentIDs)
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	answerQueryTool, err := functiontool.New(
+		functiontool.Config{
+			Name:        "dk_answer_query",
+			Description: "Answer a query based on the Developer Knowledge base.",
+		},
+		func(ctx tool.Context, args AnswerQueryArgs) (string, error) {
+			return client.AnswerQuery(ctx, args.Query)
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	searchDocsTool, err := functiontool.New(
+		functiontool.Config{
+			Name:        "dk_search_documents",
+			Description: "Search for documents in the Developer Knowledge base.",
+		},
+		func(ctx tool.Context, args SearchDocumentsArgs) (string, error) {
+			return client.SearchDocuments(ctx, args.Query)
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return []tool.Tool{getDocsTool, answerQueryTool, searchDocsTool}, nil
+}
+
 // NewAgent creates a new Agent attached to a specific text generator model.
 func NewAgent(llm model.LLM, cfg *config.Config) (*Agent, error) {
 	if llm == nil {
