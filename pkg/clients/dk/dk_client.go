@@ -38,16 +38,16 @@ func NewRealDeveloperKnowledgeClient() *RealDeveloperKnowledgeClient {
 }
 
 // GetDocuments fetches specific documents by their IDs.
-func (c *RealDeveloperKnowledgeClient) GetDocuments(_ context.Context, documentIDs []string) (string, error) {
+func (c *RealDeveloperKnowledgeClient) GetDocuments(_ context.Context, _ []string) (string, error) {
 	return "", fmt.Errorf("GetDocuments not implemented")
 }
 
 // AnswerQuery answers a query based on the knowledge base.
-func (c *RealDeveloperKnowledgeClient) AnswerQuery(_ context.Context, query string) (string, error) {
+func (c *RealDeveloperKnowledgeClient) AnswerQuery(_ context.Context, _ string) (string, error) {
 	return "", fmt.Errorf("AnswerQuery not implemented")
 }
 
 // SearchDocuments searches for documents related to a query.
-func (c *RealDeveloperKnowledgeClient) SearchDocuments(_ context.Context, query string) (string, error) {
+func (c *RealDeveloperKnowledgeClient) SearchDocuments(_ context.Context, _ string) (string, error) {
 	return "", fmt.Errorf("SearchDocuments not implemented")
 }
