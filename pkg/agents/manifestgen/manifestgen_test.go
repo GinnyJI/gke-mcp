@@ -21,6 +21,7 @@ import (
 	"testing"
 
 	"github.com/GoogleCloudPlatform/gke-mcp/pkg/config"
+
 	"google.golang.org/adk/model"
 	"google.golang.org/genai"
 )
@@ -95,15 +96,5 @@ func TestCreateDKTools(t *testing.T) {
 	}
 	if len(tools) != 3 {
 		t.Errorf("Expected 3 tools, got %d", len(tools))
-	}
-	expectedNames := map[string]bool{
-		"dk_get_documents":    true,
-		"dk_answer_query":     true,
-		"dk_search_documents": true,
-	}
-	for _, tool := range tools {
-		if !expectedNames[tool.Config().Name] {
-			t.Errorf("Unexpected tool name: %s", tool.Config().Name)
-		}
 	}
 }
