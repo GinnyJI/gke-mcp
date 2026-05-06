@@ -80,3 +80,30 @@ func TestInstruction_ContainsGIQGuidance(t *testing.T) {
 		t.Errorf("Expected instructionTemplate to contain 'giq_generate_manifest', but it did not")
 	}
 }
+
+func TestInstruction_ContainsDeveloperKnowledge(t *testing.T) {
+	if !strings.Contains(instructionTemplate, "Developer Knowledge") {
+		t.Errorf("Expected instructionTemplate to contain 'Developer Knowledge', but it did not")
+	}
+}
+
+func TestCreateDKTools(t *testing.T) {
+	mockClient := &MockDeveloperKnowledgeClient{}
+	tools, err := createDKTools(mockClient)
+	if err != nil {
+		t.Fatalf("createDKTools failed: %v", err)
+	}
+	if len(tools) != 3 {
+		t.Errorf("Expected 3 tools, got %d", len(tools))
+	}
+	expectedNames := map[string]bool{
+		"dk_get_documents":    true,
+		"dk_answer_query":     true,
+		"dk_search_documents": true,
+	}
+	for _, tool := range tools {
+		if !expectedNames[tool.Config().Name] {
+			t.Errorf("Unexpected tool name: %s", tool.Config().Name)
+		}
+	}
+}
