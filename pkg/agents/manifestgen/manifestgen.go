@@ -198,12 +198,21 @@ func NewAgent(llm model.LLM, cfg *config.Config) (*Agent, error) {
 		return nil, fmt.Errorf("failed to create giq fetch model server versions tool: %w", err)
 	}
 
+	dkClient := NewRealDeveloperKnowledgeClient()
+	dkTools, err := createDKTools(dkClient)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create dk tools: %w", err)
+	}
+
+	allTools := []tool.Tool{generateManifestTool, fetchModelsTool, fetchModelServersTool, fetchModelServerVersionsTool, fetchProfilesTool}
+	allTools = append(allTools, dkTools...)
+
 	adkAgent, err := llmagent.New(llmagent.Config{
 		Name:        "manifest_agent",
 		Description: "Agent specialized in generating and validating Kubernetes manifests.",
 		Model:       llm,
 		Instruction: instructionTemplate,
-		Tools:       []tool.Tool{generateManifestTool, fetchModelsTool, fetchModelServersTool, fetchModelServerVersionsTool, fetchProfilesTool},
+		Tools:       allTools,
 		BeforeModelCallbacks: []llmagent.BeforeModelCallback{
 			func(ctx agent.CallbackContext, llmRequest *model.LLMRequest) (*model.LLMResponse, error) {
 				// Inject user content if Contents is empty to avoid content loss.
