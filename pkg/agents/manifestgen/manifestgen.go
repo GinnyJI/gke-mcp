@@ -198,7 +198,7 @@ func NewAgent(llm model.LLM, cfg *config.Config) (*Agent, error) {
 		return nil, fmt.Errorf("failed to create giq fetch model server versions tool: %w", err)
 	}
 
-	dkClient := NewRealDeveloperKnowledgeClient()
+	dkClient := dk.NewRealDeveloperKnowledgeClient()
 	dkTools, err := createDKTools(dkClient)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create dk tools: %w", err)
