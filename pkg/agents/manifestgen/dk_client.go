@@ -26,20 +26,7 @@ type DeveloperKnowledgeClient interface {
 	SearchDocuments(ctx context.Context, query string) (string, error)
 }
 
-// MockDeveloperKnowledgeClient is a mock implementation for testing.
-type MockDeveloperKnowledgeClient struct{}
 
-func (m *MockDeveloperKnowledgeClient) GetDocuments(ctx context.Context, documentIDs []string) (string, error) {
-	return fmt.Sprintf("Mock documents for IDs: %v", documentIDs), nil
-}
-
-func (m *MockDeveloperKnowledgeClient) AnswerQuery(ctx context.Context, query string) (string, error) {
-	return fmt.Sprintf("Mock answer for query: %s", query), nil
-}
-
-func (m *MockDeveloperKnowledgeClient) SearchDocuments(ctx context.Context, query string) (string, error) {
-	return fmt.Sprintf("Mock search results for query: %s", query), nil
-}
 
 // RealDeveloperKnowledgeClient is the actual implementation (stubbed for now).
 type RealDeveloperKnowledgeClient struct {
