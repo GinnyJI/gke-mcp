@@ -52,16 +52,13 @@ func NewRealDeveloperKnowledgeClient() *RealDeveloperKnowledgeClient {
 }
 
 func (c *RealDeveloperKnowledgeClient) GetDocuments(ctx context.Context, documentIDs []string) (string, error) {
-	// TODO: Implement actual API call using Developer Knowledge API
-	return fmt.Sprintf("Stub: Real GetDocuments for IDs: %v (API not fully implemented)", documentIDs), nil
+	return "", fmt.Errorf("GetDocuments not implemented")
 }
 
 func (c *RealDeveloperKnowledgeClient) AnswerQuery(ctx context.Context, query string) (string, error) {
-	// TODO: Implement actual API call using Developer Knowledge API
-	return fmt.Sprintf("Stub: Real AnswerQuery for query: %s (API not fully implemented)", query), nil
+	return "", fmt.Errorf("AnswerQuery not implemented")
 }
 
 func (c *RealDeveloperKnowledgeClient) SearchDocuments(ctx context.Context, query string) (string, error) {
-	// TODO: Implement actual API call using Developer Knowledge API
-	return fmt.Sprintf("Stub: Real SearchDocuments for query: %s (API not fully implemented)", query), nil
+	return "", fmt.Errorf("SearchDocuments not implemented")
 }
