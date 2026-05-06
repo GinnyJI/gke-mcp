@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package dk provides the Developer Knowledge API client.
 package dk
 
 import (
@@ -36,14 +37,17 @@ func NewRealDeveloperKnowledgeClient() *RealDeveloperKnowledgeClient {
 	return &RealDeveloperKnowledgeClient{}
 }
 
+// GetDocuments fetches specific documents by their IDs.
 func (c *RealDeveloperKnowledgeClient) GetDocuments(ctx context.Context, documentIDs []string) (string, error) {
 	return "", fmt.Errorf("GetDocuments not implemented")
 }
 
+// AnswerQuery answers a query based on the knowledge base.
 func (c *RealDeveloperKnowledgeClient) AnswerQuery(ctx context.Context, query string) (string, error) {
 	return "", fmt.Errorf("AnswerQuery not implemented")
 }
 
+// SearchDocuments searches for documents related to a query.
 func (c *RealDeveloperKnowledgeClient) SearchDocuments(ctx context.Context, query string) (string, error) {
 	return "", fmt.Errorf("SearchDocuments not implemented")
 }
