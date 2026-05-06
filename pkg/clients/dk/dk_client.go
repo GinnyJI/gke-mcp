@@ -26,8 +26,6 @@ type DeveloperKnowledgeClient interface {
 	SearchDocuments(ctx context.Context, query string) (string, error)
 }
 
-
-
 // RealDeveloperKnowledgeClient is the actual implementation (stubbed for now).
 type RealDeveloperKnowledgeClient struct {
 	// Add configuration fields here (e.g., API key, base URL)
